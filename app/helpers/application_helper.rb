@@ -6,4 +6,5 @@ module ApplicationHelper
   def display_datetime(dt)
     dt.strftime("%l:%M%P on %m/%d/%Y") # 03/14/2013 9:09pm
   end
+
 end
