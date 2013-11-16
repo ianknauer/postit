@@ -1,0 +1,61 @@
+<div class="Container">
+	<div class="row">
+		<div class="span12">
+			<div class="lead">
+				Profile: <%= @user.username %>
+			</div>
+			<hr>
+			<div class='well'>
+				<dl class="dl-horizontal">
+					<dt>username:</dt>
+					<dd><%= @user.username %></dd>
+				</dl>
+			</div>
+			<h5><%= @user.username%>'s activity</h5>
+			
+			<ul class="nav nav-tabs">
+			  <li><a href="#posts" data-toggle="tab">Posts</a></li>
+			  <li><a href="#comments" data-toggle="tab">Comments</a></li>
+			</ul>
+
+			<!-- Tab panes -->
+			<div class="tab-content">
+			  <div class="tab-pane active" id="posts">
+			  	<% @user.posts.each do |post| %>
+						<%= render 'posts/post', post: post %>
+					<% end %>
+			  </div>
+			  <div class="tab-pane" id="comments">
+			  	<% @user.comments.each do |comment| %>
+					<div class="row">
+					<div class="span0 well text-center" style="padding: 10px;">
+						<% if logged_in? %>
+							<%= link_to vote_post_comment_path(comment.post, comment, vote: true), method: 'post' do %>
+								<i class="icon-arrow-up"></i>
+							<% end %>
+						<% end %>
+						<br/>
+							<%= comment.total_votes %>
+						<br />
+						<% if logged_in? %>
+							<%= link_to vote_post_comment_path(comment.post, comment, vote: false), method: 'post' do %>
+								<i class="icon-arrow-down"></i>
+							<% end %>
+						<% end %>
+					</div>
+						<div class="well span8">
+						<em>"<%= comment.body %>"</em>
+						<br/>
+							<span class="quiet">by</span> <%= comment.creator.username %>
+							<small>at <%= display_datetime(comment.created_at) %></small>
+						</div>
+					</div>
+					<% end %>
+			  </div>
+				
+			</div>
+			
+	
+		</div>
+	</div>
+</div>
