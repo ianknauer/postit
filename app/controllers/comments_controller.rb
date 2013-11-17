@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
   def create
     @post = Post.find(params[:post_id])
     @comment = @post.comments.build(comment_params)
-    @comment.creator = current_user #FIX when we have actual login/users
+    @comment.creator = current_user
     
     
     if @comment.save
