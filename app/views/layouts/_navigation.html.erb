@@ -17,7 +17,7 @@
 			<% end %>
 			<li class="divider"></li>
 			<li>
-				<%= link_to(new_category_path) do %>
+				<%= link_to(new_category_path) if current_user.admin? do %>
 					<i class="icon-plus"></i>
 					New Category
 					<% end %>

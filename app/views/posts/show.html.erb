@@ -1,4 +1,4 @@
-<% if logged_in? %>
+<% if editable? %>
 <p class="pull-right">
 	[<%= link_to 'Edit this post', edit_post_path(@post)%>]
 </p>
@@ -27,7 +27,7 @@
 
 <h5>Comments:</h5>
 
-<% @post.comments.each do |comment| %>
+<% @post.reload.comments.each do |comment| %>
 <div class="row">
 <div class="span0 well text-center" style="padding: 10px;">
 	<% if logged_in? %>

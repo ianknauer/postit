@@ -4,7 +4,10 @@ module ApplicationHelper
   end
   
   def display_datetime(dt)
-    dt.strftime("%l:%M%P on %m/%d/%Y") # 03/14/2013 9:09pm
+    if logged_in? && !current_user.time_zone.blank?
+      dt = dt.in_time_zone(current_user.time_zone)
+    end
+    dt.strftime("%l:%M%P on %m/%d/%Y %Z") # 03/14/2013 9:09pm
   end
 
 end

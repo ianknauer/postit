@@ -12,4 +12,13 @@ class User < ActiveRecord::Base
     self.username
   end
   
+  def admin?
+    self.role == 'admin'
+  end
+  
+  def moderator?
+    self.role == 'moderator'
+  end
+  
+  
 end

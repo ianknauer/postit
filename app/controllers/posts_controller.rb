@@ -2,6 +2,8 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :vote]
   before_action :require_user, except: [:index, :show]
   
+  helper_method :editable?
+  
   def index
     @posts = Post.all
   end
@@ -54,6 +56,10 @@ class PostsController < ApplicationController
     end
   end
   
+  def editable?
+    logged_in? and current_user.admin? || @post.creator == current_user
+  end
+  
   private
   
   def post_params
@@ -63,4 +69,6 @@ class PostsController < ApplicationController
   def set_post
      @post = Post.find_by(slug: params[:id])
   end  
+  
+
 end
