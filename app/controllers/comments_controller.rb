@@ -4,10 +4,9 @@ class CommentsController < ApplicationController
   
   
   def create
-    @post = Post.find(params[:post_id])
+    @post = Post.find_by(slug: params[:post_id])
     @comment = @post.comments.build(comment_params)
     @comment.creator = current_user
-    
     
     if @comment.save
       flash[:notice] = "Your comment was added."
@@ -20,13 +19,17 @@ class CommentsController < ApplicationController
   def vote
     @vote = Vote.create(voteable: @comment, creator: current_user, vote: params[:vote])
     
-    if @vote.valid?
-      flash[:notice] = "Your vote was counted."
-    else
-      flash[:error] = "You can only vote for that once."
+    respond_to do |format|
+      format.html {
+        if @vote.valid?
+          flash[:notice] = "Your vote was counted."
+        else
+          flash[:error] = "You can only vote for that once."
+        end
+        redirect_to :back
+      }
+      format.js
     end
-    
-    redirect_to :back
   end
   
   private
