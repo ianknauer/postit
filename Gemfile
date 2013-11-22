@@ -14,6 +14,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'Voteable_Iank_nov'
+gem 'twilio-ruby'
 
 group :doc do
   gem 'sdoc', require: false
