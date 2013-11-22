@@ -1,1 +1,5 @@
-$('#comment_<%= @comment.id %>_votes').html('<%= @comment.total_votes %>');
+<% if @vote.valid? %>
+	$('#comment_<%= @comment.id %>_votes').html('<%= @comment.total_votes %>');
+<% else %>
+	$('#comment-<%= @comment.id %>-error').show()
+<% end %>
